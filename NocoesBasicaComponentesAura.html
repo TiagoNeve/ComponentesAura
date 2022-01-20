@@ -1,1 +1,42 @@
 <!-- Noções básicas de component do Aura -->
+<!-- Um exemplo de componente do Aura -->
+
+<!-- Informa que é um componente do Aura -->
+<aura:component> 
+	<!-- É onde fica armazenado os dados no lado do cliente, como se fosse uma variável -->
+	<aura:attribute name="expense" type="Expense__c" />
+	<!-- Variável para eventos, uma forma de conseguir manipular os eventos de forma mais precisa, por exemplo: Quando ocorrer um click de um botão e chamar a função que dispara o evento debaixo, então ele saberia encontrar tal evento pelo seu name e através desse name é possível executar o evento que está declarado no type -->
+	<aura:registerEvent name="updateExpense" type="c:expensesItemUpdate" />
+	<!-- Esse é um card já formatado pelo Salesforce, para facilitar e padronizar o estilo dos componentes. Portante é muito recomendado utilizar esse lightning:card -->
+	<lightning:card title="{!v.expense.Name}" iconName="standard:scan_card" class="{!v.expense.Reimbursed__c ? 'slds-theme_success' : ''}">
+
+		<!-- Utilizado para padrões de layout, onde o valor do attribute determina a posição do conteúdo dentro de um elemento. Portante esse conteúdo demarcado pelo aura:set estará no footer do lightning:card -->
+		<aura:set attribute="footer">
+			<!-- Esse do lightning ele consegue formatar a hora e a data em um padrão escolhido por você, como não foi setado o atributo year, month, day. Então ele irá formatar no padrão UTC. Ele aceita alguns valores no atributo value e tenta transformar isso em DateTime -->
+			<p>Date: <lightning:formattedDateTime value="{!v.formatdate}"/></p>
+			<!-- Ele pega o valor e compara com a data Atual, retornando para nós a quantidade de dias, horas, semanas, anos, etc de diferença. -->
+			<p class="slds-text-title"><lightning:relativeDateTime value="{!v.formatdate}"/></p>
+		</aura:set>
+		
+		<p class="slds-text-heading_medium slds-p-horizontal_small">
+				<!-- Aqui ele recebe um valor e tenta formatar tal valor em número, também é possível customizar como será mostrado esse número, style atribui o valor como moeda, portanto irá aparecer o $ ou R$-->
+				Amount: <lightning:formattedNumber value="{!v.expense.Amount__c}" style="currency"/>
+		</p>
+		<p class="slds-p-horizontal_small">
+			Client: {!v.expense.Client__c}
+		</p>
+		<p>
+			<!-- Esse elemento é capaz de editar o registro associado ao component em questão de forma dinâmica, por tanto muito útil para ser utilizado com frequência -->
+			<lightning:input type="toggle"
+							 label="Reimbursed?"
+							 name="reimbursed"
+							 class="slds-p-around_small"
+							 checked="{!v.expense.Reimbursed__c}"
+							 messageToggleActive="Yes"
+							 messageToggleInactive="No"
+							 onchange="{!c.clickReimbursed}"/>
+		</p>
+
+	</lightning:card>
+
+</aura:component>
