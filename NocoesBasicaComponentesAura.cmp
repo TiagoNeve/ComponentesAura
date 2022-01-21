@@ -41,4 +41,16 @@
 
 </aura:component>
 
-<!-- Criar e editar componentes do Aura -->
+<!-- Atributos e expressões -->
+<aura:component>
+	<!-- Forma de comunicação de componentes para componentes, esse atributo message é um dos aura:attribute que está dentro do helloMessage -->
+	<c:helloMessage message="Você está linda hoje" />
+</aura:component>
+
+<!-- helloMessage.cmp -->
+<aura:component>
+	<aura:attribute name="message" type="String" />
+	<p>Hello! {!v.message}</p>
+</aura:component>
+
+<!-- Another component que eu não faço ideia de qual seja. -->
