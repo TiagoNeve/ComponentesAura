@@ -99,3 +99,15 @@
 	</aura:set>
 	</aura:if>
 </aura:component>
+
+<!-- Tratar de ações com controladores -->
+<!-- Lidar com ações com controladores -->
+<!-- helloMessageInteractive.cmp -->
+<aura:component>
+	<aura:attribute name="message" type="String"/>
+	<p>Message of the day: {!v.message}</p>
+	<div>
+		<lightning:button label="You look nice today." onclick="{!c.handleClick}" />
+		<lightning:button label="Today is going to be a great day!" onclick="{!c.hadnleClick}"/>
+	</div>
+</aura:component>
