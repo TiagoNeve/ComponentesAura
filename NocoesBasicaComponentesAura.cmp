@@ -54,3 +54,48 @@
 </aura:component>
 
 <!-- Another component que eu não faço ideia de qual seja. -->
+<aura:component>
+	<aura:attribute name="customMessage" type="String" />
+	<p> <c:helloMessage message="{!v.customMessage}" /> </p>
+</aura:component>
+
+<aura:component>
+	<aura:attribute name="expense" type="Expense__c"/>
+	<p>
+		Amount:
+		<lightning:formattedNumber value="{!v.expense.Amount__c}" style="currency" />
+	</p>
+	<p>
+		Client: {!v.expense.Client__c}
+	</p>
+	<p>
+		<lightning:input type="toggle"
+						 label="Reimbursed?"
+						 name="reimbursed"
+						 checked="{!v.expense.Reimbursed__c}" />
+	</p>
+
+</aura:component>
+
+<!-- helloPlayground.cmp -->
+<aura:component>
+	<aura:attribute name="messages" type="List" 
+		default="['You look nice today.', 'Great weather we\'re having.', 'How are you?']" />
+	<h1>Hello Playground</h1>
+	<p>Silly fun with attributes adn expressions.</p>
+	<h2>List Items</h2>
+	<p><c:helloMessage message="{!v.messages[0]}"/></p>
+	<p><c:helloMessage message="{!v.messages[1]}"/></p>
+	<p><c:helloMessage message="{!v.messages[2]}"/></p>
+	<h2>List Iteration</h2>
+	<aura:iteration items="{!v.messages}" var="msg">
+		<p><c:helloMessage message="{!msg}" /></p>
+	</aura:iteration>
+	<h2>Conditional Expressions and Global Value Providers</h2>
+	<aura:if isTrue="{!$Browser.isIPhone}">
+		<p><c:helooMessage message="{!v.messages[0]}"/></p>
+	<aura:set attribute="else">
+		<p><c:helloMessage message="{!v.messages[1]}"/></p>
+	</aura:set>
+	</aura:if>
+</aura:component>
