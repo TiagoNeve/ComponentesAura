@@ -57,3 +57,30 @@ Um vídeo fazendo o procedimento do projeto e tals
 ```
 
 Depois de criar o component, basta adicionar no registro de Contas.
+
+## Retrieve a Contact List
+
+### Retrieve the Contacts
+
+> MyContactListController.js
+```js
+({
+    myAction : function(component, event, helper) {
+        var action = component.get("c.getContacts");
+
+        action.setParams({
+            recordId: component.get("v.recordId")
+        });
+
+        action.setCallback(this, (data) => {
+            component.set("v.contacts", data.getReturnValue());
+        });
+
+        $A.enqueueAction(action);
+    }
+})
+```
+> MyContactList.cmp
+```html
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
+```
