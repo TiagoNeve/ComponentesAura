@@ -210,3 +210,64 @@
 
 <!-- Criar a nova despesa -->
 <aura:attribute name="expenses" type="Expense__c[]" />
+
+<!-- ### A referência não é a coleção -->
+
+<!-- ### Exibir a lista de despesas -->
+
+<!-- ExpenseItem.cmp -->
+<aura:component>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="formatdate" type="Date"/>
+	<aura:attribute name="expense" type="Expense__c"/>
+	<lightning:card title="{!v.expense.Name}" iconName="standard:scan_card" class="{!v.expense.Reimbursed__c ? 'slds-theme_success' : ''} ">
+		<aura:set attribute="footer">
+			<p>
+				Date: <lightning:formattedDateTime value="{!v.formatdate}" />
+			</p>
+			<p class="slds-text-title">
+				<lightning:relativeDateTime value="{!v.formatdate}" />
+			</p>
+		</aura:set>
+		<p class="slds-text-heading_medium slds-p-horizontal_small">
+			Amount: <ligntning:formattedNumber value="{!v.expense.Amount__c}" style="currency"/> 
+		</p>
+		<p class="slds-p-horizontal_small">
+			Client: {!v.expense.Client__c}
+		</p>
+		<p>
+			<lightning:input type="toggle" 
+							 label="Reimbursed?"
+							 name="reimbursed"
+							 class="slds-p-around_small"
+							 checked="{!v.expense.Reimbursed__c}"
+							 messageToggleActive="Yes"
+							 messageToggleInactive="No"
+							 onchange="{!c.clickReimbursed}"/>
+		</p>
+	</lightning:card> 
+</aura:component>
+
+
+<!-- expenseList.cmp -->
+<aura:component>
+	<aura:attribute name="expenses" type="Expense_c[]" />
+	<lightning:card title="Expense">
+		<p class="slds-p-horizontal_small">
+			<aura:iteration items="{!v.expenses}" var="expense">
+				<c:expenseItem expense="{!expense}" />
+			</aura:iteration>
+		</p>
+	</lightning:card>
+</aura:component>
+
+<!-- Desafio do Inserir dados usando formulários -->
+<aura:component>
+	<aura:attribute name="items" type="Camping_Item__c[]"/>
+	<aura:attribute name="newItem" type="Camping_Item__c" default="{
+		'Quantity__c' = 0,
+		'Price__c' = 0
+	}"/>
+</aura:component>
+
+<!-- ## Conectar ao Salesforce com os controladores do lado do servidor -->
