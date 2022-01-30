@@ -49,8 +49,32 @@
 		if (mydate) {
 			component.set("v.formatdate", new Date(mydate));
 		}
-	}
+	},
 
-	
+	// Load expenses from Salesforce
+	doInit2 : function(component, event, helper) {
+		// Create the action
+		let action = component.get("c.getExpenses");
+		// Add callback behavior for when response is received
+
+		// Isso será executado quando o método getExpenses retornar algo.
+		action.setCallback(this, (response) => {
+			let state = response.getState();
+
+			if (state === "SUCCESS") {
+				component.set("v.expenses", response.getReturnValue());
+			}
+			else {
+				console.log("Failed with state: " + state);
+			}
+		});
+
+		// Send action off to be executed
+		$A.enqueueAction(action);
+	}
+	// No lado do controlador js, o c. significa o controlador do Apex, que foi setado no atributo controller do component.
+	// C. -> Marcação do componente -> Controlador do lado do cliente
+	// c. -> Código do controlador -> Controlador do lado do servidor
+	// C: -> Marcação -> Namespace padrão
 })
 

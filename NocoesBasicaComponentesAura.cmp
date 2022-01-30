@@ -271,3 +271,23 @@
 </aura:component>
 
 <!-- ## Conectar ao Salesforce com os controladores do lado do servidor -->
+<!-- ### Conceitos de controlador do lado do servidor 
+	* Só informando como funciona a conexão de View, Controller.
+	* Depois explicando como funciaon a conexão Model, View, Controller JS, Controller Apex
+-->
+<!-- ### Consultar dados no Salesforce -->
+<!-- ### Carregar dados do Salesforce -->
+<aura:component controller="ExpensesController">
+	<aura:handler name="init" action="{c.doInit}" value="{!this}" />
+
+</aura:component>
+
+<!-- ### Chamar métodos do controlador do lado do servidor -->
+
+<!-- ### Chamadas ao servidor, execução assíncrona e funções de retorno de chamada.  -->
+<!-- ### Lidar com a resposta do servidor -->
+<!-- ### Controladores do Apex para componentes do Aura -->
+
+<!-- ### Salvar dados no Salesforce -->
+
+<!-- ### Cuidados a se tomar -->
