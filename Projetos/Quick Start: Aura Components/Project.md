@@ -84,3 +84,25 @@ Depois de criar o component, basta adicionar no registro de Contas.
 ```html
     <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
 ```
+
+## Render and Preview the Contact List
+
+### Render the Contact List
+
+> MyContactList.cmp
+```html
+    <lightning:datatable data="{!v.Contacts}" 
+                         columns="{!v.Columns}" 
+                         keyField="Id"
+                         hideCheckboxColumn="true" 
+                         />
+```
+
+> MyContactListController.js
+```js
+    component.set("v.Columns", [
+        { label: "First Name", fieldName: "FirstName", type: "text" },
+        { label: "Last Name", fieldName: "LastName", type: "text" },
+        { label: "Phone", fieldName: "Phone", type: "phone" }
+    ])
+```
