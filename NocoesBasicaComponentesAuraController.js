@@ -71,10 +71,22 @@
 
 		// Send action off to be executed
 		$A.enqueueAction(action);
-	}
+	},
 	// No lado do controlador js, o c. significa o controlador do Apex, que foi setado no atributo controller do component.
 	// C. -> Marcação do componente -> Controlador do lado do cliente
 	// c. -> Código do controlador -> Controlador do lado do servidor
 	// C: -> Marcação -> Namespace padrão
+
+	clickReimbursed2 : function(component, event, helper) {
+		let expense = component.get("v.expense");
+		let updateEvent = component.getEvent("updateExpense");
+		updateEvent.setParams({ "expense" : expense });
+		updateEvent.fire();
+	},
+
+	handleUpdateExpense: function(component, event, helper) {
+		let updateExp = event.getParam("expense");
+		helper.updateExpense(component, updateExp);
+	}
 })
 

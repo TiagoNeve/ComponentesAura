@@ -291,3 +291,31 @@
 <!-- ### Salvar dados no Salesforce -->
 
 <!-- ### Cuidados a se tomar -->
+
+<!-- ## Conectar componentes com eventos -->
+
+<!-- ### Composição e decomposição -->
+<!-- ### Novamente, a metáfora Convtando um circuito -->
+<!-- Enviar um evento de um componente -->
+<lightning:input type="toggle"
+				 label="Reimbursed?"
+				 name="reimbursed"
+				 class="slds=o=around_small"
+				 checked="{!v.expense.Reimbursed__c}"
+				 messageToggleActive="Yes"
+				 messageToggleInactive="No"
+				 onchange="{!c.clickReimbursed}"/>
+
+<!-- ### Definir um evento -->
+<!-- expensesItemUpdate.event -->
+<aura:event type="COMPONENT">
+	<aura:attribute name="expense" type="Expense__c"/>
+</aura:event>
+
+<!-- ### Enviar um evento -->
+<aura:registerEvent name="updateExpense" type="c:expensesItemUpdate" />
+<!-- ### Manipular um evento -->
+<aura:handler name="updateExpense" event="c:expensesItemUpdate" action="{!c.handleUpdateExpense}"/>
+
+<!-- ### Refatorar as funções auxiliares -->
+<!-- ### Refatorar o formulário Adicionar despesas -->
